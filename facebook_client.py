@@ -14,3 +14,8 @@ class FacebookClient:
         """Return number of fans for the given page."""
         page = self.graph.get_object(id=page_id, fields='fan_count')
         return page['fan_count']
+
+    def get_page_about(self, page_id):
+        """Return some information about the given page."""
+        page = self.graph.get_object(id=page_id, fields='about')
+        return page['about']
