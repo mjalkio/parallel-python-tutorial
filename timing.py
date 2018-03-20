@@ -1,6 +1,7 @@
 """TODO."""
 import os
 import time
+from multiprocessing import Pool
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -16,4 +17,11 @@ nonprofit_df['facebook'].map(fb.get_page_fan_count)
 nonprofit_df['facebook'].map(fb.get_page_about)
 t1 = time.perf_counter()
 
+print("Time elapsed: {time} seconds.".format(time=t1 - t0))
+
+t0 = time.perf_counter()
+with Pool(processes=4) as pool:
+    pool.map(fb.get_page_fan_count, nonprofit_df['facebook'])
+    pool.map(fb.get_page_about, nonprofit_df['facebook'])
+t1 = time.perf_counter()
 print("Time elapsed: {time} seconds.".format(time=t1 - t0))
