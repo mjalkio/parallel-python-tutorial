@@ -1,3 +1,4 @@
+dask[dataframe]
 facebook-sdk
 pandas
 python-dotenv
