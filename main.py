@@ -1,13 +1,15 @@
 """TODO."""
 import os
 
-import facebook
+import pandas as pd
 from dotenv import load_dotenv
+
+from facebook_client import FacebookClient
 
 load_dotenv()
 
-graph = facebook.GraphAPI(access_token=os.getenv('FACEBOOK_ACCESS_TOKEN'),
-                          version='2.6')
+fb = FacebookClient(access_token=os.getenv('FACEBOOK_ACCESS_TOKEN'))
 
-print(graph.get_object(id='TheTaskForceforGlobalHealth',
-                       fields='about,fan_count'))
+nonprofit_df = pd.read_csv('nonprofit_facebook.csv')
+
+nonprofit_df['fan_count'] = nonprofit_df['facebook'].map(fb.get_page_fan_count)
